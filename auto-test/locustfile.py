@@ -12,7 +12,7 @@ from locust import HttpUser, task, between, LoadTestShape
 # 三种负载策略（用哪个就把哪个类的名字改成 ActiveShape，
 #          或者删掉另两个，locust 只认一个 LoadTestShape 子类）
 # ============================================================
-
+"""
 class StepLoadShape(LoadTestShape):          # ← 策略 A：阶梯加压
     '''阶梯式压测：每 30 秒翻倍用户数 — 找系统瓶颈'''
     stages = [
@@ -24,7 +24,7 @@ class StepLoadShape(LoadTestShape):          # ← 策略 A：阶梯加压
             if run_time < stage_duration:
                 return (stage_users, 1)
         return None
-"""
+
 
 class SpikeLoadShape(LoadTestShape):         # ← 策略 B：尖峰测试
     '''模拟瞬时流量洪峰 — 突然涌入大量用户，几十秒后退去'''
@@ -39,8 +39,7 @@ class SpikeLoadShape(LoadTestShape):         # ← 策略 B：尖峰测试
         elif run_time < 60:
             return (100, 50)                 # 50-60s：又一次尖峰
         return None
-"""
-"""
+
 class SoakLoadShape(LoadTestShape):          # ← 策略 C：稳定性负载
     '''长时间稳定压测 — 检测内存泄漏、连接池泄漏'''
     def tick(self):
