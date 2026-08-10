@@ -47,3 +47,20 @@ jobs:
       - name: 停止测试服务器
         if: always()
         run: kill $(lsof -t -i:5000)
+  performance:
+    needs: test             
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 安装 + 跑压测
+        run: |
+          pip install locust
+          cd auto-test
+          python api_test_server.py &
+          sleep 2
+          locust -f locustfile.py --host=http://127.0.0.1:5000 --headless -u 5 -r 2 -t 15s --only-summary
