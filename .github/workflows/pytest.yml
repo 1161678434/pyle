@@ -1,0 +1,48 @@
+name: 接口自动化测试
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '0 8 * * *'  # 每天早上8点
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 安装依赖
+        run: |
+          pip install -r requirements.txt
+          pip install pytest allure-pytest
+
+      - name: 启动测试服务器
+        run: |
+          python auto-test/api_test_server.py &
+          sleep 2
+
+      - name: 运行测试
+        run: |
+          cd auto-test
+          pytest api_day5_real_api.py -v --alluredir=reports --junitxml=reports/junit.xml
+
+      - name: 上传测试报告
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: auto-test/reports/
+
+      - name: 停止测试服务器
+        if: always()
+        run: kill $(lsof -t -i:5000)

@@ -1,0 +1,147 @@
+<h2>剪贴板历史弹窗 - 优化版</h2>
+<p class="subtitle">内容优先，清晰的视觉层级</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">方案 A：大预览 + 类型图标</div>
+    <div class="mockup-body" style="padding:0;background:#fafafa;position:relative;min-height:360px">
+      <div style="padding:20px;font-family:monospace;font-size:13px;color:#555;line-height:1.8">
+        <div>def calculate_total(items):</div>
+        <div style="padding-left:20px">result = 0</div>
+        <div style="padding-left:20px">for item in items:</div>
+        <div style="padding-left:40px;color:#2196F3;font-weight:bold">|</div>
+        <div style="padding-left:20px;color:#999">...</div>
+      </div>
+      <div style="position:absolute;left:170px;top:30px;background:white;border:1px solid #e0e0e0;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.18);width:320px;font-family:'Microsoft YaHei',sans-serif">
+        <div style="padding:10px 14px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:13px;font-weight:600;color:#333;">📋 剪贴板</span>
+          <span style="font-size:11px;color:#aaa;background:#f5f5f5;padding:2px 8px;border-radius:3px">6 条</span>
+        </div>
+        <div style="max-height:320px;overflow-y:auto">
+          <!-- item 1 - selected -->
+          <div style="padding:12px 14px;border-bottom:1px solid #f5f5f5;background:#f0f4ff;cursor:pointer;display:flex;gap:10px;align-items:flex-start">
+            <span style="font-size:16px;flex-shrink:0;width:24px;text-align:center">📝</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;word-break:break-all">item["price"] * item["qty"]</div>
+              <div style="font-size:11px;color:#999;margin-top:4px">3 分钟前</div>
+            </div>
+          </div>
+          <!-- item 2 -->
+          <div style="padding:12px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;display:flex;gap:10px;align-items:flex-start">
+            <span style="font-size:16px;flex-shrink:0;width:24px;text-align:center">📝</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;word-break:break-all">def process_data(df):\n    return df.dropna()</div>
+              <div style="font-size:11px;color:#999;margin-top:4px">12 分钟前</div>
+            </div>
+          </div>
+          <!-- item 3 - image -->
+          <div style="padding:12px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;display:flex;gap:10px;align-items:flex-start">
+            <span style="font-size:16px;flex-shrink:0;width:24px;text-align:center">🖼️</span>
+            <div style="flex:1;min-width:0">
+              <div style="background:#f0f0f0;border-radius:4px;padding:16px;text-align:center;font-size:12px;color:#999">📊 图片预览</div>
+              <div style="font-size:11px;color:#999;margin-top:4px">28 分钟前</div>
+            </div>
+          </div>
+          <!-- item 4 -->
+          <div style="padding:12px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;display:flex;gap:10px;align-items:flex-start">
+            <span style="font-size:16px;flex-shrink:0;width:24px;text-align:center">📝</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;word-break:break-all">https://github.com/anthropics/claude-code/issues/...</div>
+              <div style="font-size:11px;color:#999;margin-top:4px">1 小时前</div>
+            </div>
+          </div>
+          <!-- item 5 -->
+          <div style="padding:12px 14px;cursor:pointer;display:flex;gap:10px;align-items:flex-start">
+            <span style="font-size:16px;flex-shrink:0;width:24px;text-align:center">📝</span>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;color:#1a1a1a;line-height:1.5;word-break:break-all">import pandas as pd\nimport numpy as np</div>
+              <div style="font-size:11px;color:#999;margin-top:4px">2 小时前</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:6px 14px;border-top:1px solid #f0f0f0;font-size:11px;color:#bbb">
+          ↑↓ 选择 &nbsp; Enter 粘贴 &nbsp; Del 删除 &nbsp; Esc 关闭
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">方案 B：简洁卡片式</div>
+    <div class="mockup-body" style="padding:0;background:#fafafa;position:relative;min-height:360px">
+      <div style="padding:20px;font-family:monospace;font-size:13px;color:#555;line-height:1.8">
+        <div>def calculate_total(items):</div>
+        <div style="padding-left:20px">result = 0</div>
+        <div style="padding-left:20px">for item in items:</div>
+        <div style="padding-left:40px;color:#2196F3;font-weight:bold">|</div>
+        <div style="padding-left:20px;color:#999">...</div>
+      </div>
+      <div style="position:absolute;left:170px;top:30px;background:white;border:1px solid #e0e0e0;border-radius:10px;box-shadow:0 8px 32px rgba(0,0,0,0.18);width:300px;font-family:'Microsoft YaHei',sans-serif">
+        <div style="padding:8px 12px">
+          <input placeholder="🔍 搜索历史..." style="width:100%;padding:8px 10px;border:1px solid #e0e0e0;border-radius:6px;font-size:13px;font-family:'Microsoft YaHei',sans-serif;outline:none;box-sizing:border-box">
+        </div>
+        <div style="max-height:280px;overflow-y:auto;padding:0 8px">
+          <div style="padding:10px;margin-bottom:4px;border-radius:6px;background:#f0f4ff;cursor:pointer">
+            <div style="font-size:13px;color:#1a1a1a;line-height:1.6">item["price"] * item["qty"]</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:11px;color:#aaa">3 分钟前</span>
+              <span style="font-size:11px;background:#e8e8e8;padding:2px 6px;border-radius:3px;color:#666">文本</span>
+            </div>
+          </div>
+          <div style="padding:10px;margin-bottom:4px;border-radius:6px;cursor:pointer">
+            <div style="font-size:13px;color:#1a1a1a;line-height:1.6">def process_data(df):\n    return df.dropna()</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:11px;color:#aaa">12 分钟前</span>
+              <span style="font-size:11px;background:#e8e8e8;padding:2px 6px;border-radius:3px;color:#666">文本</span>
+            </div>
+          </div>
+          <div style="padding:10px;margin-bottom:4px;border-radius:6px;cursor:pointer">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="background:#f5f5f5;border-radius:4px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#999">缩略图</div>
+              <div style="flex:1;font-size:13px;color:#1a1a1a">error_log.png</div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:11px;color:#aaa">28 分钟前</span>
+              <span style="font-size:11px;background:#fff3e0;padding:2px 6px;border-radius:3px;color:#e65100">图片</span>
+            </div>
+          </div>
+          <div style="padding:10px;margin-bottom:4px;border-radius:6px;cursor:pointer">
+            <div style="font-size:13px;color:#1a1a1a;line-height:1.6">https://github.com/anthropics/...</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:11px;color:#aaa">1 小时前</span>
+              <span style="font-size:11px;background:#e8e8e8;padding:2px 6px;border-radius:3px;color:#666">文本</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:8px 12px;border-top:1px solid #f0f0f0;font-size:11px;color:#bbb;display:flex;justify-content:space-between">
+          <span>↑↓ 选择</span>
+          <span>Enter 粘贴</span>
+          <span>Esc 关闭</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>方案 A vs B 对比</h3>
+</div>
+
+<div class="pros-cons">
+  <div class="pros">
+    <h4>方案 A：大预览 + 类型图标</h4>
+    <ul>
+      <li>左侧图标快速区分文本/图片</li>
+      <li>内容全文展示可换行</li>
+      <li>多行内容一目了然</li>
+    </ul>
+  </div>
+  <div class="pros">
+    <h4>方案 B：简洁卡片式</h4>
+    <ul>
+      <li>更紧凑的排版</li>
+      <li>标签区分内容类型</li>
+      <li>图片带缩略图预览</li>
+      <li>内置搜索栏</li>
+    </ul>
+  </div>
+</div>

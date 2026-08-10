@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 聊天助手 - Day 6</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #1a1a2e;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chat-container {
+            width: 100%;
+            max-width: 700px;
+            height: 90vh;
+            background: #16213e;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        .chat-header {
+            padding: 16px 20px;
+            background: #0f3460;
+            color: #e94560;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header .commands {
+            font-size: 12px;
+            color: #a0a0b0;
+            font-weight: normal;
+        }
+        .chat-header .commands span {
+            color: #e94560;
+            margin: 0 4px;
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .message {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.6;
+            word-break: break-word;
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .message.user {
+            align-self: flex-end;
+            background: #e94560;
+            color: #fff;
+        }
+        .message.assistant {
+            align-self: flex-start;
+            background: #1a1a3e;
+            color: #e0e0e0;
+            border: 1px solid #2a2a5e;
+        }
+        .message.system-info {
+            align-self: center;
+            background: transparent;
+            color: #666;
+            font-size: 12px;
+            padding: 4px 8px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+        .message pre {
+            background: #0d1117;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+        .message code {
+            font-family: "Fira Code", "Consolas", monospace;
+            font-size: 13px;
+        }
+        .chat-input-area {
+            padding: 12px 20px;
+            background: #0f3460;
+            display: flex;
+            gap: 10px;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 8px;
+            border: none;
+            background: #1a1a3e;
+            color: #e0e0e0;
+            font-size: 14px;
+            outline: none;
+        }
+        .chat-input-area input::placeholder { color: #555; }
+        .chat-input-area button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: #e94560;
+            color: #fff;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        .chat-input-area button:hover { background: #c73e54; }
+        .chat-input-area button:disabled { background: #555; cursor: not-allowed; }
+        .typing-indicator {
+            align-self: flex-start;
+            color: #666;
+            font-size: 13px;
+            padding: 8px 16px;
+            display: none;
+        }
+        .typing-indicator.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <span>Day 6 多轮对话</span>
+            <span class="commands">命令: <span>/history</span> <span>/clear</span> <span>quit</span></span>
+        </div>
+        <div class="chat-messages" id="messages">
+            <div class="message assistant">你好！我是 Python 教学助手，有什么问题尽管问。</div>
+        </div>
+        <div class="typing-indicator" id="typing">AI 思考中...</div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="输入消息..." autofocus>
+            <button id="sendBtn" onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById("messages");
+        const userInput = document.getElementById("userInput");
+        const sendBtn = document.getElementById("sendBtn");
+        const typing = document.getElementById("typing");
+        const sessionId = Date.now().toString(36);
+
+        // 回车发送
+        userInput.addEventListener("keydown", function(e) {
+            if (e.key === "Enter") sendMessage();
+        });
+
+        function addMessage(role, content) {
+            const div = document.createElement("div");
+            div.className = "message " + role;
+            div.innerHTML = formatContent(content);
+            messagesDiv.appendChild(div);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function formatContent(text) {
+            // 代码块处理
+            return text
+                .replace(/```(\w*)\n([\s\S]*?)```/g, "<pre><code>$2</code></pre>")
+                .replace(/\n/g, "<br>");
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message || sendBtn.disabled) return;
+
+            userInput.value = "";
+            sendBtn.disabled = true;
+            typing.classList.add("active");
+
+            // 显示用户消息
+            addMessage("user", message);
+
+            try {
+                const res = await fetch("/api/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ session_id: sessionId, message: message }),
+                });
+                const data = await res.json();
+
+                typing.classList.remove("active");
+
+                if (data.quit) {
+                    addMessage("system-info", data.reply);
+                    sendBtn.disabled = true;
+                    return;
+                }
+
+                if (data.error) {
+                    addMessage("system-info", "错误：" + data.error);
+                } else {
+                    addMessage("assistant", data.reply);
+                }
+            } catch (e) {
+                typing.classList.remove("active");
+                addMessage("system-info", "网络错误：" + e.message);
+            }
+
+            sendBtn.disabled = false;
+            userInput.focus();
+        }
+    </script>
+</body>
+</html>

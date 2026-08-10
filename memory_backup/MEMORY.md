@@ -1,0 +1,5 @@
+- [学习进度](learning-progress.md) — AI Agent 学习计划进度：Day 1-33 完成，第二阶段全部结束
+- [文件布局](file-layout.md) — 练习文件存放规则：ai-agent/ + auto-test/
+- [用户背景](user-background.md) — 软件测试工程师，Python 初学者，目标是 AI Agent 测试开发
+- [学习反馈](feedback-learning.md) — 用户学习风格：动手实践型，善追问原理和总结规律
+- [记忆同步](feedback-memory-sync.md) — 记忆文件双向同步规则：本地 ↔ 备份，更新前先对比

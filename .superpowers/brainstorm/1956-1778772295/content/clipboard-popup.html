@@ -1,0 +1,70 @@
+<h2>剪贴板历史 - 跟随光标弹出</h2>
+<p class="subtitle">按 Ctrl+Shift+V 时，弹窗出现在当前光标/输入框位置附近</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">在文本编辑器中使用</div>
+    <div class="mockup-body" style="padding:0;background:#fafafa;position:relative;min-height:300px">
+      <div style="padding:20px;font-family:monospace;font-size:13px;color:#555;line-height:1.8">
+        <div>def calculate_total(items):</div>
+        <div style="padding-left:20px">result = 0</div>
+        <div style="padding-left:20px">for item in items:</div>
+        <div style="padding-left:40px;color:#2196F3;font-weight:bold">|</div>
+        <div style="padding-left:20px;color:#999">...</div>
+        <div>return result</div>
+      </div>
+      <!-- popup at cursor -->
+      <div style="position:absolute;left:180px;top:40px;background:white;border:1px solid #ccc;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.15);width:280px;z-index:10">
+        <div style="padding:6px 10px;border-bottom:1px solid #eee;font-size:11px;color:#999">🔍 剪贴板历史 (5条)</div>
+        <div style="padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;cursor:pointer;background:#e3f2fd">📝  item["price"] * item["qty"]</div>
+        <div style="padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;cursor:pointer">📝  total += item_price</div>
+        <div style="padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;cursor:pointer">🖼️  screenshot_2026.png</div>
+        <div style="padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;cursor:pointer">📝  https://github.com/...</div>
+        <div style="padding:8px 10px;font-size:12px;cursor:pointer">📝  import pandas as pd</div>
+      </div>
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">在聊天框中使用</div>
+    <div class="mockup-body" style="padding:0;background:#fafafa;position:relative;min-height:300px">
+      <div style="padding:16px;background:#e8f5e9;margin:12px;border-radius:8px;font-size:12px">
+        <strong>同事：</strong>这个 bug 能看一下吗？
+      </div>
+      <div style="padding:16px;background:white;margin:12px;border-radius:8px;font-size:12px;border:1px solid #e0e0e0">
+        <span style="color:#2196F3">|</span> <span style="color:#bbb">输入回复...</span>
+      </div>
+      <!-- popup at input -->
+      <div style="position:absolute;left:30px;bottom:20px;background:white;border:1px solid #ccc;border-radius:8px;box-shadow:0 -2px 20px rgba(0,0,0,0.15);width:280px;z-index:10;transform:translateY(-100%)">
+        <div style="padding:6px 10px;border-bottom:1px solid #eee;font-size:11px;color:#999">🔍 剪贴板历史 (5条)</div>
+        <div style="padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;cursor:pointer;background:#e3f2fd">📝  错误日志已经在查了</div>
+        <div style="padding:8px 10px;border-bottom:1px solid #f0f0f0;font-size:12px;cursor:pointer">📝  稍等一下我给回复</div>
+        <div style="padding:8px 10px;font-size:12px;cursor:pointer">🖼️  error_screenshot.png</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>弹窗交互规则</h3>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+  <div style="background:#f5f5f5;padding:16px;border-radius:8px">
+    <h4 style="margin-top:0">定位</h4>
+    <ul style="font-size:13px;line-height:1.8;margin:0;padding-left:18px">
+      <li>有焦点输入框时 → 光标位置弹出</li>
+      <li>无输入框时 → 鼠标指针位置弹出</li>
+      <li>超出屏幕自动翻转方向</li>
+    </ul>
+  </div>
+  <div style="background:#f5f5f5;padding:16px;border-radius:8px">
+    <h4 style="margin-top:0">操作</h4>
+    <ul style="font-size:13px;line-height:1.8;margin:0;padding-left:18px">
+      <li>↑↓ 方向键 / 鼠标 选择条目</li>
+      <li>Enter / 双击 → 粘贴到当前输入框</li>
+      <li>Delete → 删除单条记录</li>
+      <li>Esc → 关闭弹窗</li>
+      <li>输入关键词实时过滤</li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<h2>设置面板</h2>
+<p class="subtitle">三个标签页：常规 / 热键 / 剪贴板</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">常规设置</div>
+    <div class="mockup-body" style="font-size:13px;padding:16px">
+      <div style="margin-bottom:12px">
+        <div class="label">截图保存路径</div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <input class="mock-input" value="D:\Screenshots\" style="flex:1">
+          <button class="mock-button">浏览</button>
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div class="label">默认图片格式</div>
+        <select style="width:100%;padding:6px;border:1px solid #ddd;border-radius:4px;margin-top:4px">
+          <option>PNG</option>
+          <option>JPEG</option>
+          <option>WebP</option>
+        </select>
+      </div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>开机自动启动</span>
+        <input type="checkbox">
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span>截图后播放声音</span>
+        <input type="checkbox" checked>
+      </div>
+    </div>
+  </div>
+  <div class="mockup">
+    <div class="mockup-header">热键设置</div>
+    <div class="mockup-body" style="font-size:13px;padding:16px">
+      <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>区域截图</span>
+        <kbd style="background:#eee;padding:3px 8px;border-radius:3px">Ctrl+Shift+A</kbd>
+      </div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>截长图</span>
+        <kbd style="background:#eee;padding:3px 8px;border-radius:3px">Ctrl+Shift+L</kbd>
+      </div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>剪贴板历史</span>
+        <kbd style="background:#eee;padding:3px 8px;border-radius:3px">Ctrl+Shift+V</kbd>
+      </div>
+      <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>快速截屏到剪贴板</span>
+        <kbd style="background:#eee;padding:3px 8px;border-radius:3px">Print Scr</kbd>
+      </div>
+      <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
+        <span>颜色拾取器</span>
+        <kbd style="background:#eee;padding:3px 8px;border-radius:3px">Ctrl+Shift+C</kbd>
+      </div>
+      <p class="subtitle" style="font-size:12px">点击任一热键可重新录制</p>
+    </div>
+  </div>
+</div>
+
+<div class="mockup" style="margin-top:20px">
+  <div class="mockup-header">剪贴板设置</div>
+  <div class="mockup-body" style="font-size:13px;padding:16px">
+    <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+      <span>最大历史记录数</span>
+      <input class="mock-input" value="200" style="width:80px;text-align:center">
+    </div>
+    <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+      <span>自动清除超过 N 天的记录</span>
+      <input class="mock-input" value="30" style="width:80px;text-align:center">
+    </div>
+    <div style="margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+      <span>图片最大缓存大小</span>
+      <input class="mock-input" value="50" style="width:80px;text-align:center"> MB
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <span>排除应用（正则匹配窗口标题）</span>
+      <input class="mock-input" value="KeePass|1Password" style="width:180px">
+    </div>
+  </div>
+</div>
