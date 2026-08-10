@@ -23,8 +23,8 @@ jobs:
 
       - name: 安装依赖
         run: |
-          pip install -r requirements.txt
-          pip install pytest allure-pytest
+          python -m pip install -r requirements.txt
+          
 
       - name: 启动测试服务器
         run: |
@@ -34,7 +34,7 @@ jobs:
       - name: 运行测试
         run: |
           cd auto-test
-          pytest api_day5_real_api.py -v --alluredir=reports --junitxml=reports/junit.xml
+          python -m pytest api_day5_real_api.py -v --alluredir=reports --junitxml=reports/junit.xml
 
       - name: 上传测试报告
         if: always()
